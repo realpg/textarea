@@ -1,4 +1,5 @@
 ﻿# 图文编辑模块
+- config_graphic配置建议写在脚本中的最上面，我在后面的七牛模块中用到了config_graphic里的参数。
 - 主要文件：
   - css: 根目录/public/css/graphicEditing/graphicEditing.css
   - js: 根目录/public/js/graphicEditing/graphicEditing.js

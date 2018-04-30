@@ -279,6 +279,8 @@
             }
             editTestingDetail('{{URL::asset('')}}', param, callBack)
         }
+
+
         $(function () {
             //获取七牛token
             initQNUploader();
