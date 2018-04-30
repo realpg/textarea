@@ -5,14 +5,8 @@
   - 视图文件：根目录/resources/admin/testing/edit.blade.php
  - 浏览地址：http://localhost/textarea/public/admin/index
  - 数据模型结构：
- # Host: localhost  (Version 5.5.5-10.1.29-MariaDB)
- # Date: 2018-04-30 15:45:55
- # Generator: MySQL-Front 6.0  (Build 2.20)
  
- 
- #
  # Structure for table "t_goods_info"  商品表
- #
  
  DROP TABLE IF EXISTS `t_goods_info`;
  CREATE TABLE `t_goods_info` (
@@ -40,14 +34,8 @@
    PRIMARY KEY (`id`)
  ) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='商品表';
 
-# Host: localhost  (Version 5.5.5-10.1.29-MariaDB)
-# Date: 2018-04-30 15:46:09
-# Generator: MySQL-Front 6.0  (Build 2.20)
 
-
-#
 # Structure for table "t_goods_detail_info" 商品详情表
-#
 
 DROP TABLE IF EXISTS `t_goods_detail_info`;
 CREATE TABLE `t_goods_detail_info` (
@@ -63,14 +51,7 @@ CREATE TABLE `t_goods_detail_info` (
 ) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='商品详情表';
 
 
-# Host: localhost  (Version 5.5.5-10.1.29-MariaDB)
-# Date: 2018-04-30 15:48:23
-# Generator: MySQL-Front 6.0  (Build 2.20)
-
-
-#
 # Structure for table "t_admin_info" 用户表（用于后台登录）
-#
 
 DROP TABLE IF EXISTS `t_admin_info`;
 CREATE TABLE `t_admin_info` (
