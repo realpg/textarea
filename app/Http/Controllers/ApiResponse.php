@@ -16,6 +16,10 @@ class ApiResponse
     const UNKNOW_ERROR = 999;
     //缺少参数
     const MISSING_PARAM = 901;
+    //参数类型不正确
+    const FAIL_PARAMETER_TYPE = 902;
+    //操作失败
+    const FAIL_OPERATION = 910;
 
     //成功
     const SUCCESS_CODE = 200;
@@ -35,10 +39,16 @@ class ApiResponse
     //用户身份校验失败
     const FAIL_USER_TYPE = 106;
 
-    //映射错误信息
-    public static $errorMassage = [
+
+
+    
+    //返回信息
+    public static $returnMassage = [
+        self::SUCCESS_CODE => '操作成功',
         self::UNKNOW_ERROR => '未知错误',
         self::MISSING_PARAM => '缺少参数',
+        self::FAIL_PARAMETER_TYPE => '参数类型不正确',
+        self::FAIL_OPERATION => '操作失败',
         self::TOKEN_LOST => '缺少token',
         self::TOKEN_ERROR => 'token校验失败',
         self::USER_ID_LOST => '缺少用户编码',
@@ -55,14 +65,17 @@ class ApiResponse
 
         if ($result === true) {
             $rsp['result'] = true;
-            $rsp['ret'] = $ret;
+            $rsp['message'] = self::$returnMassage[$code];
+            if($ret){
+                $rsp['ret'] = $ret;
+            }
         } else {
             $rsp['result'] = false;
             if ($ret) {
                 $rsp['message'] = $ret;
             } else {
-                if (array_key_exists($code, self::$errorMassage)) {
-                    $rsp['message'] = self::$errorMassage[$code];
+                if (array_key_exists($code, self::$returnMassage)) {
+                    $rsp['message'] = self::$returnMassage[$code];
                 } else {
                     $rsp['message'] = 'undefind error code';
                 }

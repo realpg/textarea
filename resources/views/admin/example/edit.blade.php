@@ -129,10 +129,10 @@
         //配置图文编辑器
         var config_graphic={
             'id':'{{$data['id']}}',  //需要编辑的商品id【必填】
-            'number':2,   //显示的功能数目
+            'number':3,   //显示的功能数目
             'text':true,  //是否显示文本编辑
             'image':true,  //是否显示图片上传
-            'video':false,  //是否显示视频上传
+            'video':true,  //是否显示视频上传
             'edit_id':'prefix_graphic_content',    //编辑模块的id【必填】
             'edit_template':'prefix_graphic_content_template',    //编辑模块的DOT模板id【必填】
             'show_id':'prefix_graphic_show_content',    //展示模块的id【必填】
@@ -154,15 +154,15 @@
                 detail['content']=add_text;
                 detail['type']=0;
                 detail['sort']=jsonObj.length;
-                addTestingDetailList(detail,function(ret){
-                    // console.log('addTestingDetailList text ret is : '+JSON.stringify(ret))
+                addExampleDetailList(detail,function(ret){
+                    console.log('addExampleDetailList text ret is : '+JSON.stringify(ret))
                     if (ret.result == true) {
                         //重新展示
                         $('#'+config_graphic['prefix']+'add_text').val('')
                         jsonObj.push(ret.ret);
                         refresh(jsonObj)
                     } else {
-                        layer.msg(ret.msg, {icon: 2, time: 1000})
+                        layer.msg(ret.message, {icon: 2, time: 1000})
                     }
                 })
             }
@@ -180,7 +180,7 @@
                 detail['type']=1;
                 detail['sort']=jsonObj.length;
                 // jsonObj.push(detail);
-                addTestingDetailList(detail,function(ret){
+                addExampleDetailList(detail,function(ret){
                     if (ret.result == true) {
                         //重新展示
                         $('#'+config_graphic['prefix']+'add_image').val('')
@@ -189,7 +189,7 @@
                         jsonObj.push(ret.ret);
                         refresh(jsonObj)
                     } else {
-                        layer.msg(ret.msg, {icon: 2, time: 1000})
+                        layer.msg(ret.message, {icon: 2, time: 1000})
                     }
                 })
             }
@@ -206,7 +206,7 @@
                 detail['content']=add_video;
                 detail['type']=2;
                 detail['sort']=jsonObj.length;
-                addTestingDetailList(detail,function(ret){
+                addExampleDetailList(detail,function(ret){
                     if (ret.result == true) {
                         //重新展示
                         $('#'+config_graphic['prefix']+'add_video').val('')
@@ -217,7 +217,7 @@
                         jsonObj.push(ret.ret);
                         refresh(jsonObj)
                     } else {
-                        layer.msg(ret.msg, {icon: 2, time: 1000})
+                        layer.msg(ret.message, {icon: 2, time: 1000})
                     }
                 })
             }
@@ -230,9 +230,9 @@
                     id: id,
                     _token: "{{ csrf_token() }}"
                 }
-                delTestingDetail('{{URL::asset('')}}', param, function (ret) {
+                delExampleDetail('{{URL::asset('')}}', param, function (ret) {
                     if (ret.result == true) {
-                        layer.msg(ret.msg, {icon: 1, time: 1000});
+                        layer.msg(ret.message, {icon: 1, time: 1000});
                         console.log('sortDown index is : ' + JSON.stringify((jsonObj[index])))
                         for(var i=0;i<jsonObj.length;i++){
                             if(id==jsonObj[i]['id']){
@@ -242,31 +242,31 @@
                         //重新展示
                         refresh(jsonObj)
                     } else {
-                        layer.msg(ret.msg, {icon: 2, time: 1000})
+                        layer.msg(ret.message, {icon: 2, time: 1000})
                     }
                 })
             });
         }
         //提交后台编辑数据
-        function editTestingDetailList(jsonObj){
+        function editExampleDetailList(jsonObj){
             var param = {
                 sort:jsonObj['sort'],
                 content:jsonObj['content'],
                 id: jsonObj['id'],
                 _token: "{{ csrf_token() }}"
             }
-            editTestingDetail('{{URL::asset('')}}', param, function (ret) {
-                // console.log("editTestingDetail ret is ： "+JSON.stringify(ret))
+            editExampleDetail('{{URL::asset('')}}', param, function (ret) {
+                console.log("editExampleDetail ret is ： "+JSON.stringify(ret))
                 if (ret.result == true) {
                     return ret.result;
                 } else {
-                    layer.msg(ret.msg, {icon: 2, time: 1000})
+                    layer.msg(ret.message, {icon: 2, time: 1000})
                     return ret.result;
                 }
             })
         }
         //提交后台添加数据
-        function addTestingDetailList(detail,callBack){
+        function addExampleDetailList(detail,callBack){
             if(detail['type']==0){
                 detail['content']=transformationRow(detail['content'])
             }
@@ -277,73 +277,13 @@
                 type:detail['type'],
                 sort:detail['sort']
             }
-            editTestingDetail('{{URL::asset('')}}', param, callBack)
+            editExampleDetail('{{URL::asset('')}}', param, callBack)
         }
 
 
         $(function () {
             //获取七牛token
             initQNUploader();
-            $("#form-testing-edit").validate({
-                rules: {
-                    name: {
-                        required: true,
-                    },
-                    price: {
-                        required: true,
-                        number:true,
-                        // digits:true
-                    },
-                    unit: {
-                        required: true,
-                    },
-                    sort: {
-                        required: true,
-                        digits:true,
-                    },
-                    region: {
-                        required: true,
-                    },
-                    lab: {
-                        required: true,
-                    },
-                    contacts: {
-                        required: true,
-                    },
-                    address: {
-                        required: true,
-                    },
-                },
-                onkeyup: false,
-                focusCleanup: false,
-                success: "valid",
-                submitHandler: function (form) {
-                    $(form).ajaxSubmit({
-                        type: 'POST',
-                        url: "{{ URL::asset('/admin/testing/edit')}}",
-                        success: function (ret) {
-                            console.log(JSON.stringify(ret));
-                            if (ret.result) {
-                                layer.msg(ret.msg, {icon: 1, time: 2000});
-                                setTimeout(function () {
-                                    // var index = parent.layer.getFrameIndex(window.name);
-                                    parent.$('.btn-refresh').click();
-                                    // parent.layer.close(index);
-                                }, 1000)
-                            } else {
-                                layer.msg(ret.msg, {icon: 2, time: 2000});
-                            }
-                        },
-                        error: function (XmlHttpRequest, textStatus, errorThrown) {
-                            layer.msg('保存失败', {icon: 2, time: 2000});
-                            console.log("XmlHttpRequest:" + JSON.stringify(XmlHttpRequest));
-                            console.log("textStatus:" + textStatus);
-                            console.log("errorThrown:" + errorThrown);
-                        }
-                    });
-                }
-
-            });
         });
         //初始化七牛上传模块
         function initQNUploader() {

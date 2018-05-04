@@ -48,11 +48,11 @@
     <aside class="Hui-aside">
         <div class="menu_dropdown bk_2">
             <dl id="menu-goods">
-                <dt><i class="Hui-iconfont">&#xe620;</i> 商品管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
+                <dt><i class="Hui-iconfont">&#xe620;</i> 示例管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
                 </dt>
                 <dd>
                     <ul>
-                        <li><a data-href="{{ URL::asset('/admin/testing/index') }}" data-title="第三方检测商品管理" href="javascript:void(0)">第三方检测商品管理</a></li>
+                        <li><a data-href="{{ URL::asset('/admin/example/edit') }}?id=1" data-title="示例一" href="javascript:void(0)">示例一</a></li>
                     </ul>
                 </dd>
             </dl>

@@ -285,7 +285,7 @@ function sortUp(index,id){
             jsonObj[i]['sort']=i
         }
         for(var i=0;i<jsonObj.length;i++){
-            editTestingDetailList(jsonObj[i])
+            editExampleDetailList(jsonObj[i])
         }
         //重新展示
         refresh(jsonObj)
@@ -306,7 +306,7 @@ function sortDown(index){
             jsonObj[i]['sort']=i
         }
         for(var i=0;i<jsonObj.length;i++){
-            editTestingDetailList(jsonObj[i])
+            editExampleDetailList(jsonObj[i])
         }
         //重新展示
         refresh(jsonObj)
@@ -318,7 +318,7 @@ function updateTextDetial(index){
     content=transformationRow(content)
     jsonObj[index]['content']=content;
     for(var i=0;i<jsonObj.length;i++){
-        editTestingDetailList(jsonObj[i])
+        editExampleDetailList(jsonObj[i])
     }
     //重新展示
     refresh(jsonObj)
